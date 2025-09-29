@@ -1,0 +1,450 @@
+{
+  "name": "DataMind - Talk to Your Google Sheets Using AI",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1UDWt0-Z9fHqwnSNfU3vvhSoYCFG6EG3E-ZewJC_CLq4",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1UDWt0-Z9fHqwnSNfU3vvhSoYCFG6EG3E-ZewJC_CLq4/edit?usp=drivesdk",
+          "cachedResultName": "Sample Marketing Data - n8n"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": 365710158,
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1UDWt0-Z9fHqwnSNfU3vvhSoYCFG6EG3E-ZewJC_CLq4/edit#gid=365710158",
+          "cachedResultName": "Data"
+        },
+        "options": {}
+      },
+      "id": "5b054044-5814-47aa-99b4-0a9c5a601bad",
+      "name": "Analyze Data",
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "position": [
+        1936,
+        704
+      ],
+      "typeVersion": 4.7,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "q7qjEWo7nIx7VLrK",
+          "name": "Google Sheets account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "a6869994-77e8-4f5d-916c-cc40f0b5ab7e",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        1392,
+        720
+      ],
+      "typeVersion": 1.2,
+      "credentials": {
+        "openAiApi": {
+          "id": "iSFuSzSoslEdB8a9",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput?.messages?.[0]?.content || $json.message }}",
+        "options": {
+          "systemMessage": "DataMind AI Assistant (ES)\n\nHablas SIEMPRE en español (es-MX). Eres un asistente de análisis de datos inteligente que responde preguntas consultando EXCLUSIVAMENTE la herramienta \"Analyze Data\" (Google Sheets). Nunca improvises respuestas sin usar la herramienta.\n\nDataset disponible con columnas: \nCustomer ID, Name, Email, Campaign, Channel, Clicks, Conversions, Spend ($), Date (YYYY-MM-DD).\n\nReglas de funcionamiento:\n- Si la pregunta es ambigua o usa sinónimos, pide UNA aclaración breve y específica.\n- Si hay suficiente contexto, resuelve directamente sin pedir más información.\n- Proporciona una respuesta directa con datos + unidad de medida, seguida de una explicación breve de cómo se calculó.\n- Si faltan columnas necesarias para resolver la consulta, indícalo explícitamente.\n- Mantén un tono profesional pero amigable.\n\nMapeo de sinónimos comunes:\n- \"marca/empresa\" → **Name** (o **Campaign** según contexto)\n- \"inversión/gasto/costo\" → **Spend ($)**\n- \"conversiones\" → **Conversions**\n- \"tasa de conversión\" → **Conversions / Clicks**\n- \"por canal\" → agrupa por **Channel**\n- \"por campaña\" → agrupa por **Campaign**\n- \"por fecha/periodo\" → agrupa por **Date**\n\nEjemplos de consultas típicas:\n1) \"¿Qué campaña generó más conversiones?\" → Agrupa por Campaign, ordena por Conversions descendente\n2) \"Total invertido en Q1 2024\" → Filtra Date entre 2024-01-01 y 2024-03-31, suma Spend ($)\n3) \"Tasa de conversión del canal Email\" → Filtra Channel=Email, calcula (sum Conversions / sum Clicks) * 100\n\nNo proporciones listas de \"qué puedo hacer\". Responde directamente o solicita UNA aclaración específica."
+        }
+      },
+      "id": "2ecbc678-f948-4435-bc3a-e66718810b33",
+      "name": "Talk to Your Data",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1584,
+        448
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "93c92fba-07f8-416f-952b-3b001e8294e0",
+      "name": "Chat with Your Data",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "position": [
+        864,
+        768
+      ],
+      "webhookId": "edca0f0a-77c3-43e5-8ece-e514a29446f5",
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}"
+      },
+      "id": "713d398d-fb27-42b2-bb39-21ef8f8f97df",
+      "name": "Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        1648,
+        704
+      ],
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "content": "DataMind Backend Workflow\n\nEste workflow procesa las consultas del frontend y las envía al modelo de AI para analizar datos de Google Sheets.\n\nComponentes:\n- Webhook para recibir requests del frontend\n- Validación de entrada\n- Agente AI con acceso a Google Sheets\n- Memoria de conversación\n- Respuestas con CORS habilitado",
+        "height": 512,
+        "width": 688,
+        "color": 7
+      },
+      "id": "db0584ce-5b77-45aa-b0d1-1d1055c97157",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1344,
+        320
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "analytics-chat",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        528,
+        400
+      ],
+      "id": "68a1d353-647e-4883-b70d-e0f80a0b6061",
+      "name": "Webhook – POST /analytics-chat",
+      "webhookId": "3907210c-9c43-4ed2-9279-0e294e5f79b0"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Valida y extrae datos del webhook\nconst body = ($json && typeof $json.body === 'object') ? $json.body : ($json || {});\n\nconst message   = (body.message   ?? '').toString().trim();\nconst sessionId = (body.sessionId ?? 'datamind-session').toString().trim();\nconst locale    = (body.locale    ?? 'es-MX').toString().trim();\n\n// Validación de entrada\nif (!message) {\n  return { \n    json: { \n      error: true, \n      status: 400, \n      msg: 'El campo \"message\" es requerido' \n    } \n  };\n}\n\nif (message.length > 2000) {\n  return { \n    json: { \n      error: true, \n      status: 400, \n      msg: 'El mensaje excede el límite de 2000 caracteres' \n    } \n  };\n}\n\nreturn { \n  json: { \n    message, \n    sessionId, \n    locale,\n    timestamp: new Date().toISOString()\n  } \n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        736,
+        400
+      ],
+      "id": "21bef2b2-3988-444f-9ad1-696af8698bd3",
+      "name": "Code – Validate Input"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "77c54729-9ec4-4bc6-94a1-780aa8fbb6d5",
+              "leftValue": "={{$json.error}}",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        944,
+        400
+      ],
+      "id": "3e1b1b0b-38fd-4086-aa9d-f6694b4c9c7b",
+      "name": "IF – Is Error (Validate)"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{$json}}",
+        "options": {
+          "responseCode": 400,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type, Authorization"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "POST, OPTIONS"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1152,
+        304
+      ],
+      "id": "885d9d29-5c1a-4a94-ad1e-e23c55870f44",
+      "name": "Respond – Error (400)"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "/**\n * PREPARE CHAT INPUT\n * Convierte la entrada validada al formato requerido por el agente AI\n */\nconst data = ($json && typeof $json === 'object') ? $json : {};\n\nconst message   = (data.message   ?? '').toString().trim();\nconst sessionId = (data.sessionId ?? 'datamind-session').toString().trim();\nconst locale    = (data.locale    ?? 'es-MX').toString().trim();\n\n// Mensaje por defecto si está vacío\nconst finalMessage = message || 'Hola, ¿puedes darme un resumen general de los datos disponibles?';\n\n// Formato esperado por el agente LangChain\nreturn {\n  json: {\n    chatInput: {\n      messages: [\n        { \n          role: 'user', \n          content: finalMessage \n        }\n      ]\n    },\n    sessionId,\n    locale,\n    timestamp: data.timestamp\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1184,
+        496
+      ],
+      "id": "1bebeccc-738c-4f76-b124-43e13789f2f4",
+      "name": "Prepare Chat"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type, Authorization"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "POST, OPTIONS"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        2384,
+        496
+      ],
+      "id": "5d5140bf-d1ff-4707-87db-36731b200422",
+      "name": "Respond – OK (200)"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f2d8df92-8e72-4725-84fc-c5cd1988591c",
+              "name": "success",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "cf0cd1ed-715c-4a44-9144-46d704218b51",
+              "name": "message",
+              "value": "={{$item(0).$node[\"Talk to Your Data\"].json.output || \"Lo siento, no pude procesar tu consulta. Por favor intenta de nuevo.\"}}",
+              "type": "string"
+            },
+            {
+              "id": "7c04a3bb-4a0b-4c26-829d-b21c7c1d1e76",
+              "name": "sessionId",
+              "value": "={{$json.sessionId || $item(0).$node[\"Prepare Chat\"].json.sessionId}}",
+              "type": "string"
+            },
+            {
+              "id": "8a1e5c3d-9f2b-4e7a-8d6c-1b3e4f5a6789",
+              "name": "timestamp",
+              "value": "={{new Date().toISOString()}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1984,
+        496
+      ],
+      "id": "a5d9bc5c-9ae1-4053-842f-9f02e08b6538",
+      "name": "Format Response",
+      "alwaysOutputData": true
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Talk to Your Data",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze Data": {
+      "ai_tool": [
+        [
+          {
+            "node": "Talk to Your Data",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Talk to Your Data",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat with Your Data": {
+      "main": [
+        []
+      ]
+    },
+    "Webhook – POST /analytics-chat": {
+      "main": [
+        [
+          {
+            "node": "Code – Validate Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code – Validate Input": {
+      "main": [
+        [
+          {
+            "node": "IF – Is Error (Validate)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF – Is Error (Validate)": {
+      "main": [
+        [
+          {
+            "node": "Respond – Error (400)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Chat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Chat": {
+      "main": [
+        [
+          {
+            "node": "Talk to Your Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Talk to Your Data": {
+      "main": [
+        [
+          {
+            "node": "Format Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Response": {
+      "main": [
+        [
+          {
+            "node": "Respond – OK (200)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d807c89b-8ba4-489b-991a-4b7bb9d280b9",
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "instanceId": ""
+  },
+  "id": "",
+  "tags": [
+    {
+      "id": "datamind",
+      "name": "DataMind"
+    },
+    {
+      "id": "ai-analytics", 
+      "name": "AI Analytics"
+    }
+  ]
+}

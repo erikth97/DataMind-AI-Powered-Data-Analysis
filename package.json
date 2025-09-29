@@ -1,8 +1,10 @@
 {
-  "name": "askdata-web",
+  "name": "datamind",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "DataMind - Intelligent data analysis chat interface powered by AI",
+  "author": "Erik Tamayo",
   "scripts": {
     "dev": "node ./node_modules/vite/bin/vite.js",
     "dev:win": "node ./node_modules/vite/bin/vite.js",

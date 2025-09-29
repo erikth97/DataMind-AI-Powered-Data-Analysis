@@ -1,0 +1,31 @@
+Customer ID,Name,Email,Campaign,Channel,Clicks,Conversions,Spend ($),Date
+CUST001,Acme Corp,contact@acme.com,Summer Sale 2024,Email,150,12,500.00,2024-06-15
+CUST002,TechStart Inc,hello@techstart.com,Product Launch,Social Media,230,18,750.00,2024-06-16
+CUST003,Global Solutions,info@globalsol.com,Retargeting,PPC,89,7,320.00,2024-06-17
+CUST004,Creative Agency,team@creative.com,Brand Awareness,Display,340,25,1200.00,2024-06-18
+CUST005,Local Business,owner@local.com,Summer Sale 2024,Email,95,8,280.00,2024-06-19
+CUST006,Enterprise Co,sales@enterprise.com,Lead Generation,PPC,180,22,890.00,2024-06-20
+CUST007,Startup Ltd,founders@startup.com,Product Launch,Social Media,210,15,650.00,2024-06-21
+CUST008,Retail Chain,marketing@retail.com,Seasonal Promo,Email,420,35,1500.00,2024-06-22
+CUST009,Service Provider,contact@service.com,Retargeting,Display,165,13,480.00,2024-06-23
+CUST010,Tech Solutions,info@techsol.com,Brand Awareness,Social Media,275,20,800.00,2024-06-24
+CUST011,Consulting Firm,hello@consulting.com,Lead Generation,PPC,125,10,425.00,2024-06-25
+CUST012,E-commerce Store,support@ecommerce.com,Summer Sale 2024,Email,380,30,1100.00,2024-06-26
+CUST013,Software Company,team@software.com,Product Launch,Display,290,24,950.00,2024-06-27
+CUST014,Marketing Agency,contact@marketing.com,Retargeting,Social Media,155,12,520.00,2024-06-28
+CUST015,Professional Services,info@professional.com,Brand Awareness,PPC,200,16,680.00,2024-06-29
+CUST016,Digital Agency,hello@digital.com,Lead Generation,Email,320,26,920.00,2024-06-30
+CUST017,Manufacturing Co,sales@manufacturing.com,Seasonal Promo,Display,440,38,1600.00,2024-07-01
+CUST018,Health Services,contact@health.com,Summer Sale 2024,Social Media,185,14,590.00,2024-07-02
+CUST019,Financial Firm,info@financial.com,Product Launch,PPC,240,19,780.00,2024-07-03
+CUST020,Education Center,team@education.com,Retargeting,Email,305,25,850.00,2024-07-04
+CUST021,Real Estate Agency,contact@realestate.com,Brand Awareness,Display,220,17,720.00,2024-07-05
+CUST022,Food & Beverage,hello@food.com,Lead Generation,Social Media,160,11,480.00,2024-07-06
+CUST023,Construction Company,info@construction.com,Seasonal Promo,PPC,280,23,910.00,2024-07-07
+CUST024,Logistics Provider,sales@logistics.com,Summer Sale 2024,Email,195,15,620.00,2024-07-08
+CUST025,Media Company,team@media.com,Product Launch,Display,350,28,1050.00,2024-07-09
+CUST026,Fashion Brand,contact@fashion.com,Retargeting,Social Media,175,13,550.00,2024-07-10
+CUST027,Automotive Dealer,info@automotive.com,Brand Awareness,PPC,260,21,840.00,2024-07-11
+CUST028,Travel Agency,hello@travel.com,Lead Generation,Email,140,9,420.00,2024-07-12
+CUST029,Insurance Company,sales@insurance.com,Seasonal Promo,Display,310,26,980.00,2024-07-13
+CUST030,Beauty Brand,team@beauty.com,Summer Sale 2024,Social Media,225,18,730.00,2024-07-14
