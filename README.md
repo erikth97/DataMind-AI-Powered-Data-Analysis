@@ -17,6 +17,7 @@ DataMind revolutionizes how you interact with your data. Instead of complex form
 - *"What were our top 5 sales months this year?"*
 - *"Show me customers who spent more than $1000"*
 - *"What's the average order value by region?"*
+<img width="1895" height="861" alt="image" src="https://github.com/user-attachments/assets/280cbc25-6db1-4da7-bbe6-9481635c158e" />
 
 ## ✨ Key Features
 
