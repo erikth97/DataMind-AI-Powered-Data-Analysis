@@ -4,7 +4,7 @@ export const API_URL = import.meta.env.VITE_API_URL!;
 
 const DEBUG = import.meta.env.DEV;
 
-export async function askData(req: ChatRequest): Promise<ChatResponse> {
+export async function dataMind(req: ChatRequest): Promise<ChatResponse> {
   if (DEBUG) {
     console.log('🚀 API Request:', req);
   }

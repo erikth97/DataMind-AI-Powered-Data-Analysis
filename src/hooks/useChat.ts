@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { askData } from '../api/client';
+import { dataMind } from '../api/client';
 import { useSessionId } from './useSessionId';
 import { generateUuid } from '../utils/uuid';
 import type { Message, ChatResponse } from '../api/types';
@@ -29,7 +29,7 @@ export function useChat() {
 
     try {
       const sessionId = getOrCreate();
-      const response: ChatResponse = await askData({
+      const response: ChatResponse = await dataMind({
         message,
         sessionId,
         locale: 'es-MX',

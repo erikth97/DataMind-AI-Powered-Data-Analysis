@@ -1,6 +1,6 @@
 import { generateUuid } from '../utils/uuid';
 
-const SESSION_KEY = 'askdata:session';
+const SESSION_KEY = 'datamind:session';
 
 export function useSessionId() {
   const get = (): string => {

@@ -37,7 +37,7 @@ function App() {
             Sesión: <span className="font-mono">{sessionId}</span>
           </div>
           <div>
-            Ask-Data v1.0 - Powered by n8n & OpenAI
+            DataMind v1.0 - Powered by n8n & OpenAI
           </div>
         </div>
       </footer>

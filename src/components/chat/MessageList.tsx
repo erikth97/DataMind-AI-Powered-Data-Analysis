@@ -35,7 +35,7 @@ export function MessageList({ messages, loading = false, showCopy = true }: Mess
             
             <div className="space-y-2">
               <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                ¡Hola! Soy Ask-Data
+                ¡Hola! Soy DataMind
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Puedo ayudarte a analizar datos de la hoja de Google Sheets. 

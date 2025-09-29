@@ -7,8 +7,8 @@ interface HeaderProps {
 }
 
 export function Header({ 
-  title = "Ask-Data", 
-  subtitle = "Consulta inteligente de datos",
+  title = "DataMind", 
+  subtitle = "Análisis inteligente de datos",
   children 
 }: HeaderProps) {
   return (
